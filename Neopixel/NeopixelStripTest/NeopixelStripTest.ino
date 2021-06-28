@@ -12,9 +12,14 @@
 #include <Adafruit_NeoPixel.h>
 
 #define PIN 6
-#define N_LEDS 8
+#define N_LEDS 24
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN, NEO_GRB + NEO_KHZ800);
+// Traditional RGB strip usage
+// Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN, NEO_GRB + NEO_KHZ800);
+
+// For RGBW strips like the https://www.adafruit.com/product/2862
+//  NeoPixel Ring - 24 x 5050 RGBW LEDs w/ Integrated Drivers - Natural White - ~4500K
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN, NEO_GRBW + NEO_KHZ800);
 
 void setup()
 {
@@ -29,7 +34,10 @@ void loop()
   delay(250);
   chase(strip.Color(0, 0, 35)); // Blue
   delay(250);
-}
+  chase(strip.Color(30, 30, 30)); // Fake White
+  delay(250);
+  chase(strip.Color(0, 0, 0, 25)); // Pure White
+  delay(250);}
 
 static void chase(uint32_t c)
 {
